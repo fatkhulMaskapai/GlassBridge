@@ -18714,13 +18714,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566480560}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.64, z: -0}
+  m_LocalRotation: {x: 0.021640414, y: 0, z: 0, w: 0.9997658}
+  m_LocalPosition: {x: 0, y: 1.39, z: -0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224304750}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.48, y: 0, z: 0}
 --- !u!81 &566480562
 AudioListener:
   m_ObjectHideFlags: 0
@@ -18760,7 +18760,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.75
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -51226,7 +51226,7 @@ GameObject:
   - component: {fileID: 1600300318}
   - component: {fileID: 1600300317}
   - component: {fileID: 1600300316}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Cube (78)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55693,7 +55693,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753871027}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -61828,7 +61828,7 @@ GameObject:
   - component: {fileID: 1998143570}
   - component: {fileID: 1998143569}
   - component: {fileID: 1998143568}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Cube (79)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66693,7 +66693,7 @@ MonoBehaviour:
   isJumping: 0
   isJumpLag: 0
   movementSpeed: 2
-  rotationSpeed: 15
+  rotationSpeed: 0.5
   jumpHeight: 0.8
   gravityIntensity: -15
   jumpLag: 0.35
@@ -67123,7 +67123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7809428683769061038, guid: dfc090968ac1a314d95881f53ef7bae9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.59
+      value: -15.907
       objectReference: {fileID: 0}
     - target: {fileID: 7809428683769061038, guid: dfc090968ac1a314d95881f53ef7bae9, type: 3}
       propertyPath: m_LocalRotation.w

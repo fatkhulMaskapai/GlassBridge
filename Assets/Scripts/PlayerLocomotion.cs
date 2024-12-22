@@ -172,6 +172,7 @@ public class PlayerLocomotion : MonoBehaviour
 
             inAirTimer = 0;
             isGrounded = true;
+            InputManager.Instance.ResetMoveInput();
         }
         else
         {

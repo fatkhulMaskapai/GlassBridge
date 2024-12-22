@@ -52,6 +52,7 @@ public class ResetScene : Singleton<ResetScene>
         if (!AllowInput) return;
 
         AllowInput = false;
+        ShowQuizPanel();
         curTemp--;
         if (curTemp > 0)
             StartCoroutine(WaitToResetPos());

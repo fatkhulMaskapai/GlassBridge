@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
 	private PlayerControls playerControls;
 	private AnimatorManager animatorManager;
@@ -20,8 +20,9 @@ public class InputManager : MonoBehaviour
 
 	public bool jumpInput;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		animatorManager = GetComponent<AnimatorManager>();
 		playerLocomotion = GetComponent<PlayerLocomotion>();
 	}
@@ -55,12 +56,26 @@ public class InputManager : MonoBehaviour
 	
 	private void HandleMovement()
 	{
-		verticalInput = movementInput.y;
-		horizontalInput = movementInput.x;
-		cameraXInput = cameraInput.x;
-		cameraYInput = cameraInput.y;
-		moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-		animatorManager.UpdateAnimatorValues(0, moveAmount);
+		switch (playerLocomotion.isJumping)
+		{
+			case true:
+				//if(isGrounded)
+                verticalInput = movementInput.y;
+                //cameraXInput = cameraInput.x;
+                //cameraYInput = cameraInput.y;
+                break;
+			default: break;
+		}
+                horizontalInput = movementInput.x;
+        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
+        cameraXInput = cameraInput.x;
+        cameraYInput = cameraInput.y;
+        animatorManager.UpdateAnimatorValues(0, moveAmount);
+	}
+	public void ResetMoveInput()
+	{
+		verticalInput = 0;
+		//horizontalInput = 0;
 	}
 
 	private void HandleJumpingInput()
