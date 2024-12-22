@@ -65,4 +65,9 @@ public class ResetScene : Singleton<ResetScene>
         PlayerManager.Instance.transform.position = storePos;
         AllowInput = true;
     }
+    private void OnDestroy()
+    {
+        System.GC.Collect();
+        StopAllCoroutines();
+    }
 }
