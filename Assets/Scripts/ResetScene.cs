@@ -43,7 +43,8 @@ public class ResetScene : Singleton<ResetScene>
     void ResetPlayerPos()
     {
         AllowInput = true;
-        playerTransform.transform.position = storePos;
+        PlayerManager.Instance.transform.position = storePos;
+        //playerTransform.transform.position = storePos;
     }
 
     public void ResetSceneFunction()

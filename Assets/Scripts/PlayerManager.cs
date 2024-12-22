@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>
 {
 	private InputManager inputManager;
 	private CameraManager cameraManager;
@@ -10,8 +10,9 @@ public class PlayerManager : MonoBehaviour
 	private float maxMovementSpeed;
 	public bool isInteracting;
 	[SerializeField] Transform resetPos;
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		inputManager = GetComponent<InputManager>();
 		cameraManager = FindObjectOfType<CameraManager>();
 		playerLocomotion = GetComponent<PlayerLocomotion>();
