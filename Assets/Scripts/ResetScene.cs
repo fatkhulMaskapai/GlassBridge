@@ -40,12 +40,6 @@ public class ResetScene : Singleton<ResetScene>
         playerTransform = obj;
         StorePos = t.position;
     }
-    void ResetPlayerPos()
-    {
-        AllowInput = true;
-        PlayerManager.Instance.transform.position = storePos;
-        //playerTransform.transform.position = storePos;
-    }
 
     public void ResetSceneFunction()
 	{
@@ -68,7 +62,7 @@ public class ResetScene : Singleton<ResetScene>
         yield return new WaitForSeconds(witTimeToResetPos);
         Debug.LogError("Reset Player Pos");
         ShowTempTxt();
-        ResetPlayerPos();
-
+        PlayerManager.Instance.transform.position = storePos;
+        AllowInput = true;
     }
 }

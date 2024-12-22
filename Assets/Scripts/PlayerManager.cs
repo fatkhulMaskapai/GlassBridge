@@ -10,6 +10,7 @@ public class PlayerManager : Singleton<PlayerManager>
 	private float maxMovementSpeed;
 	public bool isInteracting;
 	[SerializeField] Transform resetPos;
+	ResetScene rs;
 	protected override void Awake()
 	{
 		base.Awake();
@@ -21,34 +22,52 @@ public class PlayerManager : Singleton<PlayerManager>
 	}
     private void Start()
     {
+		rs = ResetScene.Instance;
 		ResetScene.Instance.StorePlayer(gameObject, resetPos);
     }
 
     private void Update()
 	{
-		inputManager.HandleAllInputs();
+                inputManager.HandleAllInputs();
+		switch (rs.AllowInput)
+		{
+			case true:
+                break;
+			default: break;
+		}
 	}
 
 	private void FixedUpdate()
 	{
-		playerLocomotion.HandleAllMovement();
+        switch (rs.AllowInput)
+        {
+            case true:
+                playerLocomotion.HandleAllMovement();
+                break;
+            default: break;
+        }
 	}
 
 	private void LateUpdate()
 	{
-		//if (!ResetScene.Instance.AllowInput) return;
-
-		cameraManager.HandleAllCameraMovement();
-		isInteracting = animator.GetBool("isInteracting");
-		playerLocomotion.isJumping = animator.GetBool("isJumping");
-		animator.SetBool("isGrounded", playerLocomotion.isGrounded);
-		if (!playerLocomotion.isGrounded || playerLocomotion.isJumping)
-		{
-			playerLocomotion.movementSpeed = 3f;
-		}
-		else
-		{
-			playerLocomotion.movementSpeed = maxMovementSpeed;
-		}
+        //if (!ResetScene.Instance.AllowInput) return;
+        cameraManager.HandleAllCameraMovement();
+        //switch (rs.AllowInput)
+        //{
+        //    case true:
+                isInteracting = animator.GetBool("isInteracting");
+                playerLocomotion.isJumping = animator.GetBool("isJumping");
+                animator.SetBool("isGrounded", playerLocomotion.isGrounded);
+                if (!playerLocomotion.isGrounded || playerLocomotion.isJumping)
+                {
+                    playerLocomotion.movementSpeed = 3f;
+                }
+                else
+                {
+                    playerLocomotion.movementSpeed = maxMovementSpeed;
+                }
+        //        break;
+        //    default: break;
+        //}
 	}
 }

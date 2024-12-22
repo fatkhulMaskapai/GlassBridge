@@ -65,13 +65,16 @@ public class InputManager : MonoBehaviour
 
 	private void HandleJumpingInput()
 	{
-		if (jumpInput && !playerLocomotion.isJumping)
+		switch (jumpInput)
 		{
-			jumpInput = false;
-			playerLocomotion.HandleJumping();
+			case true:
+                if (!playerLocomotion.isJumping)
+                {
+                    jumpInput = false;
+                    playerLocomotion.HandleJumping();
+                }
+                break;
+			default: break;
 		}
 	}
-
-	
-	
 }

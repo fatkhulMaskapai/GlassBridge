@@ -70,9 +70,15 @@ public class PlayerLocomotion : MonoBehaviour
     private void Update()
     {
         // Deteksi tap di layar setelah jatuh
-        if (!isGrounded && Input.GetMouseButtonDown(0))
+        switch (isGrounded)
         {
-            ResetToStartPosition();
+            case false:
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ResetToStartPosition();
+                }
+                break;
+            default: break;
         }
 
         // Toggle invisibility when pressing the 'I' key
@@ -92,11 +98,14 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleJumping()
     {
-        if (isGrounded)
+        switch (isGrounded)
         {
-            StartCoroutine(JumpCoroutine());
-            animatorManager.animator.SetBool("isJumping", true);
-            animatorManager.PlayTargetAnimation("Jump", false);
+            case true:
+                StartCoroutine(JumpCoroutine());
+                animatorManager.animator.SetBool("isJumping", true);
+                animatorManager.PlayTargetAnimation("Jump", false);
+                break;
+            default: break;
         }
     }
 
