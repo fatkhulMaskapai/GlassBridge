@@ -73,11 +73,14 @@ public class PlayerManager : Singleton<PlayerManager>
         //    default: break;
         //}
 	}
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider col)
     {
-        if (isShow) return;
-        isShow = true;
-        Debug.LogError("Show Quiz");
-        ResetScene.Instance.ShowQuizPanel(true);
+        if(col.gameObject.name == "Quiz")
+        {
+            if (isShow) return;
+            isShow = true;
+            Debug.LogError("Show Quiz");
+            ResetScene.Instance.ShowQuizPanel(true);
+        }
     }
 }

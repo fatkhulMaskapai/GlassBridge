@@ -26,7 +26,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     [Header("Movement Speeds")]
     [SerializeField] public float movementSpeed = 10f;
-    [SerializeField] private float rotationSpeed = 20f;
+    [SerializeField] private float rotationSpeed = 20f; //default 15 in inspector
 
     [Header("Jump Speeds")] 
     [SerializeField] private float jumpHeight = 5f;
