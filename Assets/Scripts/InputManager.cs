@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
-	//private PlayerControls playerControls;
+	private PlayerControls playerControls;
 	private AnimatorManager animatorManager;
 	private PlayerLocomotion playerLocomotion;
 	
@@ -32,19 +32,19 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
 	{
-		//if (playerControls == null)
-		//{
-		//	playerControls = new PlayerControls();
-		//	playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
-		//	playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
-		//	playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
-		//}
-		//playerControls.Enable();
+		if (playerControls == null)
+		{
+			playerControls = new PlayerControls();
+			playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+			playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+			playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+		}
+		playerControls.Enable();
 	}
 
 	private void OnDisable()
 	{
-		//playerControls.Disable();
+		playerControls.Disable();
 	}
 
 	public void HandleAllInputs()

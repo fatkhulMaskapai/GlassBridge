@@ -24532,7 +24532,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
 --- !u!114 &810484937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43209,8 +43208,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.71310604, y: 2, z: 1.191662}
-  m_Center: {x: 0.031896897, y: 0, z: 0.10062256}
+  m_Size: {x: 0.713106, y: 2, z: 1.196682}
+  m_Center: {x: 0.031896897, y: 0, z: 0.10313438}
 --- !u!23 &1420705352
 MeshRenderer:
   m_ObjectHideFlags: 0
