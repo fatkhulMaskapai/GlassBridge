@@ -64,6 +64,7 @@ public class ResetScene : Singleton<ResetScene>
         yield return new WaitForSeconds(witTimeToResetPos);
         Debug.LogError("Reset Player Pos");
         ShowTempTxt();
+        ShowQuizPanel();
         PlayerManager.Instance.transform.position = storePos;
         AllowInput = true;
     }
