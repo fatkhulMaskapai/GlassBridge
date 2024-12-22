@@ -11,18 +11,21 @@ public class PlayerManager : Singleton<PlayerManager>
 	public bool isInteracting;
 	[SerializeField] Transform resetPos;
 	ResetScene rs;
-	protected override void Awake()
+    bool isShow = false;
+    protected override void Awake()
 	{
 		base.Awake();
 		inputManager = GetComponent<InputManager>();
-		cameraManager = FindObjectOfType<CameraManager>();
+		//cameraManager = FindObjectOfType<CameraManager>();
+		cameraManager = FindFirstObjectByType<CameraManager>();
 		playerLocomotion = GetComponent<PlayerLocomotion>();
 		animator = GetComponent<Animator>();
 		maxMovementSpeed = playerLocomotion.movementSpeed;
 	}
     private void Start()
     {
-		rs = ResetScene.Instance;
+        isShow = false;
+        rs = ResetScene.Instance;
 		ResetScene.Instance.StorePlayer(gameObject, resetPos);
     }
 
@@ -70,4 +73,11 @@ public class PlayerManager : Singleton<PlayerManager>
         //    default: break;
         //}
 	}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isShow) return;
+        isShow = true;
+        Debug.LogError("Show Quiz");
+        ResetScene.Instance.ShowQuizPanel(true);
+    }
 }

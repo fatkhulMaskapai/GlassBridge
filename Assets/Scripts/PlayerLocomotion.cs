@@ -112,7 +112,7 @@ public class PlayerLocomotion : MonoBehaviour
     private IEnumerator JumpCoroutine()
     {
         isJumpLag = true;
-        playerRigidbody.velocity = new Vector3(0, playerRigidbody.velocity.y);
+        playerRigidbody.linearVelocity = new Vector3(0, playerRigidbody.linearVelocity.y);
         yield return new WaitForSecondsRealtime(jumpLag);
         isJumpLag = false;
         float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
@@ -127,8 +127,8 @@ public class PlayerLocomotion : MonoBehaviour
         moveDirection.y = 0;
 
         var movementVelocity = moveDirection * movementSpeed;
-        movementVelocity.y = playerRigidbody.velocity.y;
-        playerRigidbody.velocity = movementVelocity;
+        movementVelocity.y = playerRigidbody.linearVelocity.y;
+        playerRigidbody.linearVelocity = movementVelocity;
     }
 
     private void HandleRotation()

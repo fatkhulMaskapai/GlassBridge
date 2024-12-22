@@ -13,6 +13,7 @@ public class ResetScene : Singleton<ResetScene>
     int curTemp = 0;
     [SerializeField] GameObject gameOverObj;
     [SerializeField] TextMeshProUGUI tempTxt;
+    [SerializeField] GameObject quizPanel;
     public Vector3 StorePos
     {
         get { return storePos; }
@@ -23,6 +24,7 @@ public class ResetScene : Singleton<ResetScene>
         AllowInput = true;
         tempTxt.gameObject.SetActive(false);
         gameOverObj.SetActive(false);
+        ShowQuizPanel();
         ResetTemp();
         ShowTempTxt();
     }
@@ -64,6 +66,10 @@ public class ResetScene : Singleton<ResetScene>
         ShowTempTxt();
         PlayerManager.Instance.transform.position = storePos;
         AllowInput = true;
+    }
+    public void ShowQuizPanel(bool v = false)
+    {
+        quizPanel.SetActive(v);
     }
     private void OnDestroy()
     {
