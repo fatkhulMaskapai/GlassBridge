@@ -22,7 +22,6 @@ public class ResetScene : Singleton<ResetScene>
     private void Start()
     {
         AllowInput = true;
-        tempTxt.gameObject.SetActive(false);
         gameOverObj.SetActive(false);
         ShowQuizPanel();
         ResetTemp();
@@ -35,7 +34,7 @@ public class ResetScene : Singleton<ResetScene>
     void ShowTempTxt(bool v = false)
     {
         tempTxt.text = curTemp.ToString();
-        tempTxt.gameObject.SetActive(v);
+        //tempTxt.gameObject.SetActive(v);
     }
     public void StorePlayer(GameObject obj, Transform t)
     {
