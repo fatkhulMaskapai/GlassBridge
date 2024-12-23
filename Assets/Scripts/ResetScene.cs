@@ -4,6 +4,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ResetScene : Singleton<ResetScene>
 {
@@ -21,7 +22,6 @@ public class ResetScene : Singleton<ResetScene>
     [SerializeField] GameObject gameOverObj;
     [SerializeField] GameObject retryPopUp;
     [SerializeField] Ease ease;
-    public Sprite brokenGlassSpr;
     public Vector3 StorePos
     {
         get { return storePos; }
@@ -41,6 +41,7 @@ public class ResetScene : Singleton<ResetScene>
         ResetTemp();
         ShowTempTxt();
     }
+
     void ResetTemp()
     {
         curTemp = maxTemp;
@@ -75,10 +76,15 @@ public class ResetScene : Singleton<ResetScene>
         }
         else
         {
-            isGameover = true;
-            gameOverObj.transform.DOScale(Vector3.one, 0.12f).SetEase(ease);
+            TimeManager.Instance.ShowTime(false);
+            ShowGameOver(Vector3.one);
         }
         ShowTempTxt(true);
+    }
+    public void ShowGameOver(Vector3 target)
+    {
+        isGameover = true;
+        gameOverObj.transform.DOScale(target, 0.12f).SetEase(ease);
     }
     IEnumerator WaitToResetPos(Action callback)
     {

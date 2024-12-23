@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveToObject : MonoBehaviour
 {
-    [SerializeField] int glassIndex = 0;
+    [HideInInspector] public int glassIndex = 0;
     //public Camera player; // Kamera utama yang akan bergerak
     [HideInInspector]
     public PlayerManager player; // Kamera utama yang akan bergerak
@@ -24,7 +24,7 @@ public class MoveToObject : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (!rs.AllowInput || !rs.AllowToMove || !allowToMove) return;
+        if (!rs.AllowInput || !rs.AllowToMove || !allowToMove || rs.isGameover) return;
         if (player == null)
         {
             Debug.LogError("Main Camera belum diatur!");

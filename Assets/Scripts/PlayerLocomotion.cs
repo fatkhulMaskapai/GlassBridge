@@ -34,9 +34,9 @@ public class PlayerLocomotion : Singleton<PlayerLocomotion>
     [SerializeField] private float jumpLag = 0.2f;
 
     [Header("UI Timer")]
-    public Text timerText;
-    private float countdownTime = 60f;
-
+    //public Text timerText;
+    [SerializeField] float maxCoutdown = 900;
+    float curCoutdown = 0;
     [Header("Attempts System")]
     public int maxAttempts = 3;
     private int remainingAttempts;
@@ -50,6 +50,7 @@ public class PlayerLocomotion : Singleton<PlayerLocomotion>
     protected override void Awake()
     {
         base.Awake();
+        curCoutdown = 0;
         playerManager = GetComponent<PlayerManager>();
         animatorManager = GetComponent<AnimatorManager>();
         inputManager = GetComponent<InputManager>();
@@ -65,22 +66,22 @@ public class PlayerLocomotion : Singleton<PlayerLocomotion>
     {
         startPosition = transform.position; // Simpan posisi awal
         remainingAttempts = maxAttempts;   // Set jumlah percobaan
-        StartCoroutine(TimerCountdown());
+        //StartCoroutine(TimerCountdown());
     }
 
     private void Update()
     {
         // Deteksi tap di layar setelah jatuh
-        switch (isGrounded)
-        {
-            case false:
-                if (Input.GetMouseButtonDown(0))
-                {
-                    ResetToStartPosition();
-                }
-                break;
-            default: break;
-        }
+        //switch (isGrounded)
+        //{
+        //    case false:
+        //        if (Input.GetMouseButtonDown(0))
+        //        {
+        //            ResetToStartPosition();
+        //        }
+        //        break;
+        //    default: break;
+        //}
 
         // Toggle invisibility when pressing the 'I' key
         if (Input.GetKeyDown(KeyCode.I))
@@ -182,42 +183,42 @@ public class PlayerLocomotion : Singleton<PlayerLocomotion>
         }
     }
 
-    private IEnumerator TimerCountdown()
-    {
-        while (countdownTime > 0)
-        {
-            countdownTime -= Time.deltaTime;
-            UpdateTimerUI();
-            yield return null;
-        }
+    //private IEnumerator TimerCountdown()
+    //{
+    //    while (curCoutdown < maxCoutdown)
+    //    {
+    //        curCoutdown += Time.deltaTime;
+    //        //UpdateTimerUI();
+    //        yield return null;
+    //    }
 
-        countdownTime = 0;
-        UpdateTimerUI();
-    }
+    //    //curCoutdown = 0;
+    //    //UpdateTimerUI();
+    //}
 
-    private void UpdateTimerUI()
-    {
-        int hours = Mathf.FloorToInt(countdownTime / 3600);  // Calculate hours
-        int minutes = Mathf.FloorToInt((countdownTime % 3600) / 60);  // Calculate minutes
-        int seconds = Mathf.FloorToInt(countdownTime % 60);  // Calculate seconds
+    //private void UpdateTimerUI()
+    //{
+    //    int hours = Mathf.FloorToInt(curCoutdown / 3600);  // Calculate hours
+    //    int minutes = Mathf.FloorToInt((curCoutdown % 3600) / 60);  // Calculate minutes
+    //    int seconds = Mathf.FloorToInt(curCoutdown % 60);  // Calculate seconds
 
-        timerText.text = $"{hours:D2}:{minutes:D2}:{seconds:D2}";  // Format as HH:MM:SS
-    }
+    //    //timerText.text = $"{hours:D2}:{minutes:D2}:{seconds:D2}";  // Format as HH:MM:SS
+    //}
 
     private void ResetToStartPosition()
     {
-        if (remainingAttempts > 0)
-        {
-            transform.position = startPosition; // Reset posisi
-            countdownTime = 60f;               // Reset timer
-            UpdateTimerUI();
-            remainingAttempts--;               // Kurangi sisa attempts
-        }
-        else
-        {
-            Debug.Log("Out of attempts!");
-            // Tambahkan logika jika attempts habis (game over atau lainnya)
-        }
+        //if (remainingAttempts > 0)
+        //{
+        //    transform.position = startPosition; // Reset posisi
+        //    curCoutdown = 0;               // Reset timer
+        //    UpdateTimerUI();
+        //    remainingAttempts--;               // Kurangi sisa attempts
+        //}
+        //else
+        //{
+        //    Debug.Log("Out of attempts!");
+        //    // Tambahkan logika jika attempts habis (game over atau lainnya)
+        //}
     }
 
     // Method to toggle invisibility

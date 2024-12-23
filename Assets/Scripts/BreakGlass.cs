@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
 public class BreakGlass : MonoBehaviour
@@ -8,9 +9,11 @@ public class BreakGlass : MonoBehaviour
     [SerializeField] private float radius = 4f;
     [SerializeField] private float explosionPower = 10f;
     [SerializeField] private float upwardForce = 3f;
+    [SerializeField] MoveToObject moveToObject;
     MoveToObject mo;
     bool isAllow = true;
-     BrokenGls sr;
+    bool isBreak = false;
+    BrokenGls sr;
     private void Start()
     {
         mo = GetComponent<MoveToObject>();
@@ -23,9 +26,15 @@ public class BreakGlass : MonoBehaviour
         if (sr != null)
             sr.gameObject.SetActive(v);
     }
+    public void SetBreak(bool v, int index)
+    {
+        isBreak = v;
+        moveToObject.glassIndex = index;
+        ApplyBroken();
+    }
     private void OnCollisionEnter(Collision other)
     {
-        if (!isAllow) return;
+        if (!isAllow || isBreak) return;
         if (other.relativeVelocity.magnitude > breakMagnitude)
         {
             isAllow = false;
