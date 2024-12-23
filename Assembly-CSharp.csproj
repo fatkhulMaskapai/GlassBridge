@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\ResetIsJumping.cs" />
     <Compile Include="Assets\Scripts\PlayerLocomotion.cs" />
     <Compile Include="Assets\PulsatingButton.cs" />
+    <Compile Include="Assets\Scripts\BrokenGls.cs" />
     <Compile Include="Assets\Scripts\MoveToObject.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\ButtonClickShowCheckmark.cs" />

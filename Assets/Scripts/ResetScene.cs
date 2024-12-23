@@ -21,6 +21,7 @@ public class ResetScene : Singleton<ResetScene>
     [SerializeField] GameObject gameOverObj;
     [SerializeField] GameObject retryPopUp;
     [SerializeField] Ease ease;
+    public Sprite brokenGlassSpr;
     public Vector3 StorePos
     {
         get { return storePos; }

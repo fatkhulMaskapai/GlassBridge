@@ -10,10 +10,18 @@ public class BreakGlass : MonoBehaviour
     [SerializeField] private float upwardForce = 3f;
     MoveToObject mo;
     bool isAllow = true;
+     BrokenGls sr;
     private void Start()
     {
         mo = GetComponent<MoveToObject>();
         isAllow = true;
+        sr = GetComponentInChildren<BrokenGls>();
+        ApplyBroken();
+    }
+    void ApplyBroken(bool v = false)
+    {
+        if (sr != null)
+            sr.gameObject.SetActive(v);
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -30,7 +38,7 @@ public class BreakGlass : MonoBehaviour
             Debug.LogError("<color=yellow>Prepare to reset Pos</color>");
             ResetScene.Instance.PrepareToResetPos(() =>
             {
-                gameObject.SetActive(false);
+                ApplyBroken(true);
             });
             //var explosionPos = transform.position;
             //var colliders = Physics.OverlapSphere(explosionPos, radius);
