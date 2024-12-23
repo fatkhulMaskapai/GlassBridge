@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class ResetScene : Singleton<ResetScene>
     [SerializeField] GameObject gameOverObj;
     [SerializeField] TextMeshProUGUI tempTxt;
     [SerializeField] GameObject quizPanel;
+    public bool AllowToMove = true;
+    public float arcHeight = 2.0f; // Ketinggian arc saat kamera bergerak
     public Vector3 StorePos
     {
         get { return storePos; }
@@ -21,6 +24,7 @@ public class ResetScene : Singleton<ResetScene>
     }
     private void Start()
     {
+        AllowToMove = true;
         AllowInput = true;
         gameOverObj.SetActive(false);
         ShowQuizPanel();
@@ -46,7 +50,7 @@ public class ResetScene : Singleton<ResetScene>
 	{
 		SceneManager.LoadScene(0);
 	}
-    public void PrepareToResetPos()
+    public void PrepareToResetPos(Action callback = null)
     {
         if (!AllowInput) return;
 
@@ -54,19 +58,23 @@ public class ResetScene : Singleton<ResetScene>
         ShowQuizPanel();
         curTemp--;
         if (curTemp > 0)
-            StartCoroutine(WaitToResetPos());
+            StartCoroutine(WaitToResetPos(callback));
         else
             gameOverObj.SetActive(true);
         ShowTempTxt(true);
     }
-    IEnumerator WaitToResetPos()
+    IEnumerator WaitToResetPos(Action callback)
     {
         yield return new WaitForSeconds(witTimeToResetPos);
         Debug.LogError("Reset Player Pos");
         ShowTempTxt();
         ShowQuizPanel();
-        PlayerManager.Instance.transform.position = storePos;
+        if (PlayerManager.Instance != null) PlayerManager.Instance.transform.position = storePos;
+        else Debug.LogError("Player Manager is NULL");
         AllowInput = true;
+        if (callback != null)
+            callback.Invoke();
+        PlayerManager.Instance.curIndex = 0;
     }
     public void ShowQuizPanel(bool v = false)
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerLocomotion : MonoBehaviour
+public class PlayerLocomotion : Singleton<PlayerLocomotion>
 {
     private PlayerManager playerManager;
     private AnimatorManager animatorManager;
@@ -47,8 +47,9 @@ public class PlayerLocomotion : MonoBehaviour
     private Renderer playerRenderer;
     private Collider playerCollider;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerManager = GetComponent<PlayerManager>();
         animatorManager = GetComponent<AnimatorManager>();
         inputManager = GetComponent<InputManager>();
@@ -92,12 +93,13 @@ public class PlayerLocomotion : MonoBehaviour
     {
         HandleFallingAndLanding();
         if (playerManager.isInteracting || isJumpLag) return;
-        HandleMovement();
+        //HandleMovement();
         HandleRotation();
     }
 
     public void HandleJumping()
     {
+        Debug.Log("Jumping");
         switch (isGrounded)
         {
             case true:

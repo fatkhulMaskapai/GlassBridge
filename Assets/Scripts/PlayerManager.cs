@@ -12,6 +12,7 @@ public class PlayerManager : Singleton<PlayerManager>
 	[SerializeField] Transform resetPos;
 	ResetScene rs;
     bool isShow = false;
+    [HideInInspector] public int curIndex = 0;
     protected override void Awake()
 	{
 		base.Awake();
@@ -31,13 +32,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Update()
 	{
-                inputManager.HandleAllInputs();
-		switch (rs.AllowInput)
-		{
-			case true:
-                break;
-			default: break;
-		}
+        inputManager.HandleAllInputs();
 	}
 
 	private void FixedUpdate()
@@ -58,17 +53,17 @@ public class PlayerManager : Singleton<PlayerManager>
         //switch (rs.AllowInput)
         //{
         //    case true:
-                isInteracting = animator.GetBool("isInteracting");
-                playerLocomotion.isJumping = animator.GetBool("isJumping");
-                animator.SetBool("isGrounded", playerLocomotion.isGrounded);
-                if (!playerLocomotion.isGrounded || playerLocomotion.isJumping)
-                {
-                    playerLocomotion.movementSpeed = 3f;
-                }
-                else
-                {
-                    playerLocomotion.movementSpeed = maxMovementSpeed;
-                }
+        isInteracting = animator.GetBool("isInteracting");
+        playerLocomotion.isJumping = animator.GetBool("isJumping");
+        animator.SetBool("isGrounded", playerLocomotion.isGrounded);
+        if (!playerLocomotion.isGrounded || playerLocomotion.isJumping)
+        {
+            playerLocomotion.movementSpeed = 3f;
+        }
+        else
+        {
+            playerLocomotion.movementSpeed = maxMovementSpeed;
+        }
         //        break;
         //    default: break;
         //}
@@ -79,6 +74,7 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             if (isShow) return;
             isShow = true;
+            ResetScene.Instance.AllowInput = false;
             Debug.LogError("Show Quiz");
             ResetScene.Instance.ShowQuizPanel(true);
         }

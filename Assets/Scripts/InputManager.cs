@@ -77,8 +77,12 @@ public class InputManager : Singleton<InputManager>
 		verticalInput = 0;
 		//horizontalInput = 0;
 	}
-
-	private void HandleJumpingInput()
+	public void ForceJump()
+	{
+		jumpInput = true;
+		HandleJumpingInput();
+    }
+	public void HandleJumpingInput()
 	{
 		switch (jumpInput)
 		{
