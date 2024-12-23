@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using TMPro;
@@ -6,27 +7,35 @@ using UnityEngine.SceneManagement;
 
 public class ResetScene : Singleton<ResetScene>
 {
-    Vector3 storePos = Vector3.zero;
     GameObject playerTransform;
     public bool AllowInput = false;
     [SerializeField] float witTimeToResetPos = 5;
     [SerializeField] int maxTemp = 12;
     int curTemp = 0;
-    [SerializeField] GameObject gameOverObj;
     [SerializeField] TextMeshProUGUI tempTxt;
     [SerializeField] GameObject quizPanel;
     public bool AllowToMove = true;
     public float arcHeight = 2.0f; // Ketinggian arc saat kamera bergerak
+    Vector3 storePos = Vector3.zero;
+    [HideInInspector] public bool isGameover = false;
+    [SerializeField] GameObject gameOverObj;
+    [SerializeField] GameObject retryPopUp;
+    [SerializeField] Ease ease;
     public Vector3 StorePos
     {
         get { return storePos; }
         set { storePos = value; }
     }
+    private Quaternion storedRotation;
     private void Start()
     {
+        isGameover = false;
         AllowToMove = true;
         AllowInput = true;
-        gameOverObj.SetActive(false);
+        retryPopUp.transform.localScale = Vector3.zero;
+        gameOverObj.transform.localScale = Vector3.zero;
+
+        //gameOverObj.SetActive(false);
         ShowQuizPanel();
         ResetTemp();
         ShowTempTxt();
@@ -40,8 +49,9 @@ public class ResetScene : Singleton<ResetScene>
         tempTxt.text = curTemp.ToString();
         //tempTxt.gameObject.SetActive(v);
     }
-    public void StorePlayer(GameObject obj, Transform t)
+    public void StorePlayer(GameObject obj, Transform t, Quaternion q)
     {
+        storedRotation = q;
         playerTransform = obj;
         StorePos = t.position;
     }
@@ -53,14 +63,20 @@ public class ResetScene : Singleton<ResetScene>
     public void PrepareToResetPos(Action callback = null)
     {
         if (!AllowInput) return;
-
+        Debug.LogError("Prepare to reset Pos");
         AllowInput = false;
         ShowQuizPanel();
         curTemp--;
         if (curTemp > 0)
+        {
+            retryPopUp.transform.DOScale(Vector3.one, 0.12f).SetEase(ease);
             StartCoroutine(WaitToResetPos(callback));
+        }
         else
-            gameOverObj.SetActive(true);
+        {
+            isGameover = true;
+            gameOverObj.transform.DOScale(Vector3.one, 0.12f).SetEase(ease);
+        }
         ShowTempTxt(true);
     }
     IEnumerator WaitToResetPos(Action callback)
@@ -69,12 +85,19 @@ public class ResetScene : Singleton<ResetScene>
         Debug.LogError("Reset Player Pos");
         ShowTempTxt();
         ShowQuizPanel();
-        if (PlayerManager.Instance != null) PlayerManager.Instance.transform.position = storePos;
-        else Debug.LogError("Player Manager is NULL");
-        AllowInput = true;
+        retryPopUp.transform.DOScale(Vector3.zero, .12f).SetEase(ease);
         if (callback != null)
             callback.Invoke();
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.transform.rotation = storedRotation;
+            PlayerManager.Instance.transform.position = storePos;
+        }
+        else Debug.LogError("Player Manager is NULL");
+
         PlayerManager.Instance.curIndex = 0;
+        AllowInput = true;
     }
     public void ShowQuizPanel(bool v = false)
     {

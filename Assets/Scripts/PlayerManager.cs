@@ -27,7 +27,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         isShow = false;
         rs = ResetScene.Instance;
-		ResetScene.Instance.StorePlayer(gameObject, resetPos);
+		ResetScene.Instance.StorePlayer(gameObject, resetPos, transform.rotation);
     }
 
     private void Update()

@@ -9,20 +9,25 @@ public class BreakGlass : MonoBehaviour
     [SerializeField] private float explosionPower = 10f;
     [SerializeField] private float upwardForce = 3f;
     MoveToObject mo;
+    bool isAllow = true;
     private void Start()
     {
         mo = GetComponent<MoveToObject>();
+        isAllow = true;
     }
     private void OnCollisionEnter(Collision other)
     {
+        if (!isAllow) return;
         if (other.relativeVelocity.magnitude > breakMagnitude)
         {
+            isAllow = false;
             if (mo != null)
                 mo.allowToMove = false;
             //other.gameObject.GetComponent<PlayerManager>().isInteracting = true;
             //Destroy(gameObject);
             Instantiate(brokenGlass, transform.position, transform.localRotation);
             brokenGlass.transform.localScale = transform.localScale;
+            Debug.LogError("<color=yellow>Prepare to reset Pos</color>");
             ResetScene.Instance.PrepareToResetPos(() =>
             {
                 gameObject.SetActive(false);

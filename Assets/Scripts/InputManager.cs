@@ -26,10 +26,6 @@ public class InputManager : Singleton<InputManager>
 		animatorManager = GetComponent<AnimatorManager>();
 		playerLocomotion = GetComponent<PlayerLocomotion>();
 	}
-    private void Start()
-    {
-        ResetScene.Instance.StorePos = transform.position;
-    }
 
     private void OnEnable()
 	{
@@ -50,8 +46,14 @@ public class InputManager : Singleton<InputManager>
 
 	public void HandleAllInputs()
 	{
-		HandleMovement();
-		HandleJumpingInput();
+		switch (ResetScene.Instance.isGameover)
+		{
+			case false:
+                HandleMovement();
+                HandleJumpingInput();
+                break;
+			default: break;
+		}
 	}
 	
 	private void HandleMovement()
